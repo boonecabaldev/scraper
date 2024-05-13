@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-[catalog](https://newtrade6699.x.yupoo.com/albums)
-=======
+# Spider Test
+
 - [catalog](https://newtrade6699.x.yupoo.com/albums)
 - [other catalog](https://www.alibaba.com/product-detail/Factory-Whole-Sale-Acrylic-Shield-Black_1600133321560.html)
 
@@ -30,4 +29,5 @@ sudo make install
 
 vim --version
 ```
+
 >>>>>>> 163d6fe (init commit)
