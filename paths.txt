@@ -1,0 +1,1 @@
+print(response.xpath("//div[@class='showindex__children']//a[@class='album__main']/@href").get())
