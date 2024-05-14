@@ -1,17 +1,29 @@
-import sqlite3
+from sqlalchemy.orm import sessionmaker
+from myspider.items import HatNodeItem, HatLeafItem
+from .models import HatNode, HatLeaf, Base, create_engine
 
-class MyspiderPipeline(object):
+class SQLAlchemyPipeline(object):
+    def __init__(self, settings):
+        engine = create_engine(settings.get('CONNECTION_STRING'))
+        Base.metadata.create_all(engine)
+        self.Session = sessionmaker(bind=engine)
 
-    def open_spider(self, spider):
-        self.conn = sqlite3.connect('mydatabase.db')
-        self.c = self.conn.cursor()
-        self.c.execute('CREATE TABLE IF NOT EXISTS mytable (title TEXT, link TEXT)')
-
-    def close_spider(self, spider):
-        self.conn.commit()
-        self.conn.close()
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler.settings)
 
     def process_item(self, item, spider):
-        self.c.execute('INSERT INTO mytable (title, link) VALUES (?, ?)', 
-                       (item['title'], item['link']))
+        session = self.Session()
+        if isinstance(item, HatNodeItem):
+            node = HatNode(url=item['url'])
+            session.add(node)
+            session.commit()
+        elif isinstance(item, HatLeafItem):
+            node = session.query(HatNode).filter_by(url=item['node_url']).first()
+            if node is not None:
+                item['node_url'] = node.url
+                del item['node_url']  # remove the temporary node_url field
+                model = HatLeaf(**item)
+                session.add(model)
+                session.commit()
         return item

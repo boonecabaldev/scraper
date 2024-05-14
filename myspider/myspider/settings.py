@@ -19,6 +19,8 @@ NEWSPIDER_MODULE = "myspider.spiders"
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+CONNECTION_STRING = 'sqlite:///mydatabase.db'
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -65,7 +67,7 @@ ROBOTSTXT_OBEY = True
 #ITEM_PIPELINES = {
 #    "myspider.pipelines.MyspiderPipeline": 300,
 #}
-ITEM_PIPELINES = {'myspider.pipelines.MyspiderPipeline': 300}
+ITEM_PIPELINES = {'myspider.pipelines.SQLAlchemyPipeline': 300}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
