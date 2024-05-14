@@ -32,7 +32,7 @@ class HatNode(Base):
 
     id = Column(Integer, primary_key=True)
     url = Column(String)
-    local_file_path = Column(String)
+    img_src = Column(String)
     leaves = relationship("HatLeaf", backref="hatnode")
 
 class HatLeaf(Base):
@@ -40,7 +40,6 @@ class HatLeaf(Base):
 
     id = Column(Integer, primary_key=True)
     url = Column(String)
-    local_file_path = Column(String)
     node_id = Column(Integer, ForeignKey('hatnodes.id'))
     data_src = Column(String)
     data_origin_src = Column(String)

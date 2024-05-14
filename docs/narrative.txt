@@ -28,3 +28,4 @@ If the pages are very different in structure, or if they contain different types
 
 In general, if the pages are part of the same website and are related in some way, it's usually a good idea to start with a single spider and only split it into multiple spiders if it becomes too complex or unwieldy.
 
+//div[@class='showindex__children']//a[@class='album__main']//div[@class='album__imgwrap']//img[@class='album__absolute album__img autocover']/@src

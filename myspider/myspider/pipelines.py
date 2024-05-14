@@ -15,7 +15,7 @@ class SQLAlchemyPipeline(object):
     def process_item(self, item, spider):
         session = self.Session()
         if isinstance(item, HatNodeItem):
-            node = HatNode(url=item['url'])
+            node = HatNode(url=item['url'], img_src=item['img_src'])
             session.add(node)
             session.commit()
         elif isinstance(item, HatLeafItem):
@@ -23,7 +23,8 @@ class SQLAlchemyPipeline(object):
             if node is not None:
                 item['node_url'] = node.url
                 del item['node_url']  # remove the temporary node_url field
-                model = HatLeaf(**item)
-                session.add(model)
+                leaf = HatLeaf(**item)
+                node.leaves.append(leaf)
+                session.add(node)
                 session.commit()
         return item

@@ -2,7 +2,7 @@ from scrapy import Item, Field
 
 class HatNodeItem(Item):
     url = Field()
-    local_file_path = Field()
+    img_src = Field()
 
 class HatLeafItem(Item):
     url = Field()

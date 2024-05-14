@@ -5,7 +5,13 @@
 
 ## 5-14
 
+### I
+
 - MySpider.start_requests: clear db
 - Added one-to-many relation between HatNode and HatLeaf
 - Separated out items from models
 - Just confirmed we are saving nodes and leafs in db
+
+### II
+
+- I might have fixed the problem of adding relations between tables
