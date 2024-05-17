@@ -2,6 +2,7 @@ from sqlalchemy.orm import sessionmaker
 from myspider.items import HatNodeItem, HatLeafItem
 from .models import HatNode, HatLeaf, Base, create_engine
 
+
 class SQLAlchemyPipeline(object):
     def __init__(self, settings):
         engine = create_engine(settings.get('CONNECTION_STRING'))

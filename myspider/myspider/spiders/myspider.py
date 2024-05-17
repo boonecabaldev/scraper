@@ -16,21 +16,20 @@ class MySpider(scrapy.Spider):
         """
         This method is called when the spider opens.
         """
+        from sqlalchemy import MetaData
+
         engine = db_connect()
-        create_table(engine)
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        metadata = MetaData()
+        metadata.reflect(bind=engine)
 
         try:
-            # Delete all HatNode and HatLeaf instances
-            session.query(HatNode).delete()
-            session.query(HatLeaf).delete()
-            session.commit()
+            # Delete all tables in the database
+            metadata.drop_all(engine)
+            # Recreate all tables in the database
+            HatNode.metadata.create_all(engine)
+            HatLeaf.metadata.create_all(engine)
         except:
-            session.rollback()
             raise
-        finally:
-            session.close()
 
         # Continue with the default start_requests behavior
         return super().start_requests()
@@ -46,23 +45,35 @@ class MySpider(scrapy.Spider):
             yield HatNodeItem(url=url, img_src=img_src)
             yield response.follow(url, self.parse_link, meta={'node': {'url': url}})
 
+    # https://newtrade6699.x.yupoo.com/albums/162803814?uid=1&isSubCate=false&referrercate=3515821
+    #
+    # Selectors:
+    # divs = response.xpath("//div[@class='showalbum__children image__main']")
+    # h3_title = response.xpath("//div[@class='image__decwrap']/h3/@title").get()
+    # date_string = response.xpath("normalize-space(//div[@class='image__decwrap']/time/text())").get()
     def parse_link(self, response):
         node = response.meta['node']
-        for div in response.css('div.image__imagewrap'):
-            url = response.urljoin(div.css('a::attr(href)').get())
-            data_src = div.css('img::attr(data-src)').get()
-            data_origin_src = div.css('img::attr(data-origin-src)').get()
-            data_path = div.css('img::attr(data-path)').get()
-            src = div.css('img::attr(src)').get()
+        for div in response.xpath("//div[@class='showalbum__children image__main']"):
+            h3_title = div.xpath("div[@class='image__decwrap']/h3/@title").get()
+            date_string = div.xpath("normalize-space(div[@class='image__decwrap']/time/text())").get()
+            src = div.xpath("div[@class='image__imagewrap']/img/@src").get()
 
-            #print(f"url: {url}, data_src: {data_src}, data_origin_src: {data_origin_src}, data_path: {data_path}, src: {src}")
+            #print(f"h3_title: {h3_title}, date_string: {date_string}, src: {src}")
 
             leaf = HatLeafItem(
-                url=url,
                 node_url=node['url'],
-                data_src=data_src,
-                data_origin_src=data_origin_src,
-                data_path=data_path,
+                h3_title=h3_title,
+                date_string=date_string,
                 src=src
             )
+
             yield leaf
+#            leaf = HatLeafItem(
+#                url=url,
+#                node_url=node['url'],
+#                data_src=data_src,
+#                data_origin_src=data_origin_src,
+#                data_path=data_path,
+#                src=src
+#            )
+#            yield leaf

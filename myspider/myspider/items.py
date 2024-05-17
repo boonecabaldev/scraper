@@ -5,10 +5,7 @@ class HatNodeItem(Item):
     img_src = Field()
 
 class HatLeafItem(Item):
-    url = Field()
-    local_file_path = Field()
     node_url = Field()
-    data_src = Field()
-    data_origin_src = Field()
-    data_path = Field()
+    h3_title = Field()
+    date_string = Field()
     src = Field()

@@ -39,9 +39,7 @@ class HatLeaf(Base):
     __tablename__ = 'hatleafs'
 
     id = Column(Integer, primary_key=True)
-    url = Column(String)
     node_id = Column(Integer, ForeignKey('hatnodes.id'))
-    data_src = Column(String)
-    data_origin_src = Column(String)
-    data_path = Column(String)
+    h3_title = Column(String)
+    date_string = Column(String)
     src = Column(String)

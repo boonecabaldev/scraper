@@ -1,0 +1,5 @@
+the HatNodes image url is working
+
+NodeLeafs
+- only grabbing small image
+- no url; clicking image pops slide show
