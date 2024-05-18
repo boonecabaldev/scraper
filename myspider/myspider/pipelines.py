@@ -2,6 +2,16 @@ from sqlalchemy.orm import sessionmaker
 from myspider.items import HatNodeItem, HatLeafItem
 from .models import HatNode, HatLeaf, Base, create_engine
 
+import scrapy
+from scrapy.pipelines.images import ImagesPipeline
+
+from urllib.parse import urlparse
+import os
+
+from scrapy.exceptions import DropItem
+
+def get_filename_from_url(url):
+    return os.path.basename(urlparse(url).path)
 
 class SQLAlchemyPipeline(object):
     def __init__(self, settings):
@@ -29,3 +39,17 @@ class SQLAlchemyPipeline(object):
                 session.add(node)
                 session.commit()
         return item
+
+class CustomImagesPipeline(ImagesPipeline):
+
+    def file_path(self, request, response=None, info=None, *, item):
+        print('In call to file_path')
+
+        img_folder_name = 'hatnodes' if isinstance(item, HatNodeItem) else 'hatleaves'
+        hat_cat_name = item['hat_cat_name']
+
+        # Create the absolute path for img_folder_path
+        img_folder_path = os.path.join(img_folder_name, hat_cat_name, get_filename_from_url(item['img_src']))
+        #print(f'img_folder_path: {img_folder_path}')
+
+        return img_folder_path

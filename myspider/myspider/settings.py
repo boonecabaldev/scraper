@@ -13,8 +13,20 @@ SPIDER_MODULES = ["myspider.spiders"]
 NEWSPIDER_MODULE = "myspider.spiders"
 
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "myspider (+http://www.yourdomain.com)"
+# settings.py
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+DEFAULT_REQUEST_HEADERS = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en',
+}
+DEFAULT_REQUEST_HEADERS = {
+    'Referer': 'https://newtrade6699.x.yupoo.com/albums'
+}
+
+DOWNLOAD_DELAY = 0.25    # 250 ms of delay
+HTTPCACHE_ENABLED = True
+
+COOKIES_ELABLED = True
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -67,8 +79,11 @@ CONNECTION_STRING = 'sqlite:///mydatabase.db'
 #ITEM_PIPELINES = {
 #    "myspider.pipelines.MyspiderPipeline": 300,
 #}
-ITEM_PIPELINES = {'myspider.pipelines.SQLAlchemyPipeline': 300}
-
+IMAGES_STORE = 'images'
+ITEM_PIPELINES = {
+    'myspider.pipelines.SQLAlchemyPipeline': 100,
+    'myspider.pipelines.CustomImagesPipeline': 300,
+}
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
