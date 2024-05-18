@@ -13,7 +13,6 @@ def db_connect():
     Returns sqlalchemy engine instance.
     """
     return create_engine(DATABASE_URL)
-
 def create_table(engine):
     """
     Create all tables in the engine. This is equivalent to "Create Table" statements in raw SQL.
@@ -42,4 +41,4 @@ class HatLeaf(Base):
     node_id = Column(Integer, ForeignKey('hatnodes.id'))
     h3_title = Column(String)
     date_string = Column(String)
-    src = Column(String)
+    img_src = Column(String)

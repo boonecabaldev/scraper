@@ -80,7 +80,7 @@ class MySpider(scrapy.Spider):
                 item['image_urls'] = [img_src]
             yield item
 
-            #yield response.follow(url, self.parse_link, meta={'node': {'url': url}})
+            yield response.follow(url, self.parse_link, meta={'node': {'url': url}})
 
     # https://newtrade6699.x.yupoo.com/albums/162803814?uid=1&isSubCate=false&referrercate=3515821
     #
@@ -93,27 +93,25 @@ class MySpider(scrapy.Spider):
         for div in response.xpath("//div[@class='showalbum__children image__main']"):
             h3_title = div.xpath("div[@class='image__decwrap']/h3/@title").get()
             date_string = div.xpath("normalize-space(div[@class='image__decwrap']/time/text())").get()
-            src = div.xpath("div[@class='image__imagewrap']/img/@src").get()
+            img_src = div.xpath("div[@class='image__imagewrap']/img/@src").get()
+            if img_src.startswith('//'):
+                img_src = 'https:' + img_src
 
             #print(f"h3_title: {h3_title}, date_string: {date_string}, src: {src}")
 
-            leaf = HatLeafItem(
+            hat_cat_name = extract_hat_cat_name(img_src) if not isinstance(img_src, bytes) else None
+            item = HatLeafItem(
                 node_url=node['url'],
                 h3_title=h3_title,
                 date_string=date_string,
-                src=src
-            )
+                hat_cat_name=hat_cat_name,
+                )
+            if img_src:
+                # Add scheme to the URL if it's missing
+                item['img_src'] = img_src
+                item['image_urls'] = [img_src]
+            yield item
 
-            yield leaf
-#            leaf = HatLeafItem(
-#                url=url,
-#                node_url=node['url'],
-#                data_src=data_src,
-#                data_origin_src=data_origin_src,
-#                data_path=data_path,
-#                src=src
-#            )
-#            yield leaf
     def delete_images_folder(self, folder_name):
         dir_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images', folder_name)
         if os.path.exists(dir_path) and os.path.isdir(dir_path):
