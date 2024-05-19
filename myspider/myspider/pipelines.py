@@ -26,7 +26,7 @@ class SQLAlchemyPipeline(object):
     def process_item(self, item, spider):
         session = self.Session()
         if isinstance(item, HatNodeItem):
-            node = HatNode(url=item['url'], img_src=item['img_src'])
+            node = HatNode(url=item['url'], img_src=item['img_src'], img_file_path=item['img_file_path'])
             session.add(node)
             session.commit()
         elif isinstance(item, HatLeafItem):
