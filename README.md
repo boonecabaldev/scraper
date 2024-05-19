@@ -3,6 +3,10 @@
 - [catalog](https://newtrade6699.x.yupoo.com/albums)
 - [other catalog](https://newtrade6699.x.yupoo.com/albums/156268944?uid=1&isSubCate=false&referrercate=3515821)
 
+## 5-19
+
+Added img_file_path to entites. Ready for flask.
+
 ## 5-18
 
 - Fixed 302 image download problem with code:
