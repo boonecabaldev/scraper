@@ -4,7 +4,6 @@
 *.csv
 *.json
 *.xml
-__pycache__/
 .pytest_cache/
 .eggs/
 *.egg-info/

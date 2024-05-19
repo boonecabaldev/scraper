@@ -33,6 +33,7 @@ class HatNode(Base):
     url = Column(String)
     img_src = Column(String)
     leaves = relationship("HatLeaf", backref="hatnode")
+    img_file_path = Column(String)
 
 class HatLeaf(Base):
     __tablename__ = 'hatleafs'
@@ -42,3 +43,4 @@ class HatLeaf(Base):
     h3_title = Column(String)
     date_string = Column(String)
     img_src = Column(String)
+    img_file_path = Column(String)

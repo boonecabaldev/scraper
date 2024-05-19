@@ -69,11 +69,12 @@ class MySpider(scrapy.Spider):
 
             # Example usage:
             hat_cat_name = extract_hat_cat_name(img_src) if not isinstance(img_src, bytes) else None
+            img_file_path = f"images/hatnodes/{hat_cat_name}/{os.path.basename(urlparse(img_src).path)}"
             print(f"hat_cat_name: {hat_cat_name}\n")
 
             #print(f"url: {url}, img_src: {img_src}")
 
-            item = HatNodeItem(url=url, hat_cat_name=hat_cat_name, img_src=img_src, image_urls=[img_src])
+            item = HatNodeItem(url=url, hat_cat_name=hat_cat_name, img_src=img_src, image_urls=[img_src], img_file_path=img_file_path)
             if img_src:
                 # Add scheme to the URL if it's missing
                 item['img_src'] = img_src
@@ -100,11 +101,13 @@ class MySpider(scrapy.Spider):
             #print(f"h3_title: {h3_title}, date_string: {date_string}, src: {src}")
 
             hat_cat_name = extract_hat_cat_name(img_src) if not isinstance(img_src, bytes) else None
+            img_file_path = f"images/hatleafs/{hat_cat_name}/{os.path.basename(urlparse(img_src).path)}"
             item = HatLeafItem(
                 node_url=node['url'],
                 h3_title=h3_title,
                 date_string=date_string,
                 hat_cat_name=hat_cat_name,
+                img_file_path=img_file_path,
                 )
             if img_src:
                 # Add scheme to the URL if it's missing

@@ -35,7 +35,7 @@ class SQLAlchemyPipeline(object):
                 item['node_url'] = node.url
                 del item['node_url']  # remove the temporary node_url field
                 #leaf = HatLeaf(**item)
-                leaf = HatLeaf(h3_title=item['h3_title'], date_string=item['date_string'], img_src=item['img_src'], node_id=node.id)
+                leaf = HatLeaf(h3_title=item['h3_title'], date_string=item['date_string'], img_src=item['img_src'], node_id=node.id, img_file_path=item['img_file_path'])
                 node.leaves.append(leaf)
                 session.add(node)
                 session.commit()

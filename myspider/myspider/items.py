@@ -6,6 +6,7 @@ class HatNodeItem(Item):
     img_src = Field()
     image_urls = Field()
     images = Field()
+    img_file_path = Field()
 
 class HatLeafItem(Item):
     node_url = Field()
@@ -15,3 +16,4 @@ class HatLeafItem(Item):
     img_src = Field()
     image_urls = Field()
     images = Field()
+    img_file_path = Field()
