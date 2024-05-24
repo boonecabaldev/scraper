@@ -79,7 +79,7 @@ CONNECTION_STRING = 'sqlite:///mydatabase.db'
 #ITEM_PIPELINES = {
 #    "myspider.pipelines.MyspiderPipeline": 300,
 #}
-IMAGES_STORE = 'images'
+IMAGES_STORE = '/workspaces/scraper/images'
 ITEM_PIPELINES = {
     'myspider.pipelines.SQLAlchemyPipeline': 100,
     'myspider.pipelines.CustomImagesPipeline': 300,

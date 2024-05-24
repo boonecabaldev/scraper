@@ -45,14 +45,13 @@ class SQLAlchemyPipeline(object):
 class CustomImagesPipeline(ImagesPipeline):
 
     def file_path(self, request, response=None, info=None, *, item):
-        pass
-#        print('In call to file_path')
-#
-#        img_folder_name = 'HatComponents' if isinstance(item, HatComponentItem) else 'hatleaves'
-#        hat_cat_name = item['hat_cat_name']
-#
-#        # Create the absolute path for img_folder_path
-#        img_folder_path = os.path.join(img_folder_name, hat_cat_name, get_filename_from_url(item['img_src']))
-#        #print(f'img_folder_path: {img_folder_path}')
-#
-#        return img_folder_path
+        print('In call to file_path')
+
+        img_folder_name = 'HatComponents' if isinstance(item, HatComponentItem) else 'HatLeaves'
+        hat_cat_name = item['hat_cat_name']
+
+        # Create the absolute path for img_folder_path
+        img_folder_path = os.path.join(img_folder_name, hat_cat_name, get_filename_from_url(item['img_src']))
+        #print(f'img_folder_path: {img_folder_path}')
+
+        return img_folder_path
