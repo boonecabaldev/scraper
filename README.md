@@ -29,12 +29,13 @@ COOKIES_ELABLED = True
 
 ### Next
 
-1. add img_file_path to hatnode and hatleaf
+1. add img_file_path to HatComponent and hatleaf
 2. make flask website
+
 ## 5-14
 
 - MySpider.start_requests: clear db
-- Added one-to-many relation between HatNode and HatLeaf
+- Added one-to-many relation between HatComponent and HatLeaf
 - Separated out items from models
 - Just confirmed we are saving nodes and leafs in db
 - I might have fixed the problem of adding relations between tables

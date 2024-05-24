@@ -1,4 +1,4 @@
-I am iterating over hat images (called HatNode) on https://newtrade6699.x.yupoo.com/albums. For each image I am scraping the image and its href.
+I am iterating over hat images (called HatComponent) on https://newtrade6699.x.yupoo.com/albums. For each image I am scraping the image and its href.
 
 I am scraping https://newtrade6699.x.yupoo.com/albums/156268944?uid=1&isSubCate=false&referrercate=3515821 and from div.image__imagewrap i need to use scrapy to scrape data-src (name it data_src instead), data-origin-src, data-path, and src. What are the selectors for this?
 
@@ -7,7 +7,7 @@ print(len(response.xpath("//img[@class='autocover image__img image__landscape']"
 
 i'm using sqlite3 in this project. i need sql to create two tables:
 
-HatNodes
+HatComponents
 - an auto-incremented primary key column called Id
 - a text column called url
 - a text column called local_file_path

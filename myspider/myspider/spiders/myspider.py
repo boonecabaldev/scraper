@@ -1,12 +1,13 @@
 import scrapy
-from myspider.items import HatNodeItem, HatLeafItem
 
 from sqlalchemy.orm import sessionmaker
-from myspider.models import db_connect, create_table, HatNode, HatLeaf
 from urllib.parse import urlparse
 
 import os
 import shutil
+
+from myspider.items import HatComponentItem, HatLeafItem
+from ..database import reset_database
 
 def extract_hat_cat_name(hat_cat_name):
     try:
@@ -34,25 +35,9 @@ class MySpider(scrapy.Spider):
         headers = self.settings.getdict('DEFAULT_REQUEST_HEADERS')
 
         # delete images
-        self.delete_images_folder('hatnodes')
+        self.delete_images_folder('hatcomponents')
 
-        #
-        # Recreate all tables in the database
-        #
-        from sqlalchemy import MetaData
-
-        engine = db_connect()
-        metadata = MetaData()
-        metadata.reflect(bind=engine)
-
-        try:
-            # Delete all tables in the database
-            metadata.drop_all(engine)
-            # Recreate all tables in the database
-            HatNode.metadata.create_all(engine)
-            HatLeaf.metadata.create_all(engine)
-        except:
-            raise
+        reset_database() 
 
         # Continue with the default start_requests behavior
         return super().start_requests()
@@ -69,12 +54,12 @@ class MySpider(scrapy.Spider):
 
             # Example usage:
             hat_cat_name = extract_hat_cat_name(img_src) if not isinstance(img_src, bytes) else None
-            img_file_path = f"images/hatnodes/{hat_cat_name}/{os.path.basename(urlparse(img_src).path)}"
+            img_file_path = f"images/hatcomponents/{hat_cat_name}/{os.path.basename(urlparse(img_src).path)}"
             print(f"hat_cat_name: {hat_cat_name}\n")
 
             #print(f"url: {url}, img_src: {img_src}")
 
-            item = HatNodeItem(url=url, hat_cat_name=hat_cat_name, img_src=img_src, image_urls=[img_src], img_file_path=img_file_path)
+            item = HatComponentItem(url=url, hat_cat_name=hat_cat_name, img_src=img_src, image_urls=[img_src], img_file_path=img_file_path)
             if img_src:
                 # Add scheme to the URL if it's missing
                 item['img_src'] = img_src

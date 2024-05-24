@@ -1,6 +1,6 @@
 from scrapy import Item, Field
 
-class HatNodeItem(Item):
+class HatComponentItem(Item):
     url = Field()
     hat_cat_name = Field()
     img_src = Field()

@@ -1,13 +1,17 @@
-the HatNodes image url is working
+the HatComponents image url is working
 
 NodeLeafs
 - only grabbing small image
 - no url; clicking image pops slide show
 
-in myspider.parse, for each HatNodeItem
-    create a folder in /myspider/images with name equal to HatNodeItem.img_src filename (no file extension, in other words). create /myspider/images folder if it doesn't exist.
-    download image file located at HatNodeItem.img_src and save it in folder just created
+in myspider.parse, for each HatComponentItem
+    create a folder in /myspider/images with name equal to HatComponentItem.img_src filename (no file extension, in other words). create /myspider/images folder if it doesn't exist.
+    download image file located at HatComponentItem.img_src and save it in folder just created
 
-refactor this this code block  into a method called download_hatnodeimage
+refactor this this code block  into a method called download_HatComponentimage
 
 using url with format /photo.yupoo.com/newtrade6699/hat_cat_name/medium.jpg, i need to extract hat_cat_name
+
+---
+
+/workspaces/scraper/components (main) $ python -m database.run
