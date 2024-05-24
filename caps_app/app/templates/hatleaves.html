@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Hats</h1>
+{% endblock %}
+
+{% block page_content %}
+    {% if hat_leaves is none %}
+    <p>hat_leaves is None</p>
+    {% else %}
+    <div style="display: flex; flex-wrap: wrap;">
+    {% for hat_leaf in hat_leaves %}
+        <div style="flex: 1 0 21%; margin: 1%; border: 1px solid rgba(0, 128, 0, 0.5); padding: 1em;">
+            <a href="{{ url_for('static', filename=hat_leaf.img_file_path) }}">
+                <img src="{{ url_for('static', filename=hat_leaf.img_file_path) }}" />
+            </a>
+
+            <div style="display: flex; justify-content: space-between;">
+                <span>{{ hat_leaf.h3_title }}</span>
+                <span>{{ hat_leaf.date_string }}</span>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}

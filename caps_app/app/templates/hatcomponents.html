@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 
 {% block header %}
-    <h1>hatcomponents.html</h1>
+<h1>hatcomponents.html</h1>
 {% endblock %}
 
 {% block page_content %}
     {% if hat_components is none %}
     <p>hat_components is None</p>
     {% else %}
-        <div style="display: flex; flex-wrap: wrap;">
-            {% for hat_component in hat_components %}
-                <div style="flex: 1 0 21%; margin: 1%; border: 1px solid #ccc; padding: 1em;">
-                    <a href="{{ url_for('static', filename=hat_component.img_file_path) }}">
-                        <img src="{{ url_for('static', filename=hat_component.img_file_path) }}" />
-                    </a>
-                    <span>{{ hat_component.id }}</span>
-                </div>
-            {% endfor %}
+    <div style="display: flex; flex-wrap: wrap;">
+    {% for hat_component in hat_components %}
+        <div style="flex: 1 0 21%; margin: 1%; border: 1px solid rgba(0, 128, 0, 0.5); padding: 1em;">
+            <a href="{{ url_for('main.hat_component', id=hat_component.id) }}">
+                <img src="{{ url_for('static', filename=hat_component.img_file_path) }}" />
+            </a>
+            <span>{{ hat_component.id }}</span>
         </div>
+    {% endfor %}
+    </div>
     {% endif %}
 {% endblock %}

@@ -12,3 +12,16 @@ build/
 *.egg
 .scrapy/
 .vscode/
+
+__pycache__
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz

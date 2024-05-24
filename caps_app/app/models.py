@@ -1,6 +1,6 @@
-from . import db
-
 from flask_sqlalchemy import SQLAlchemy
+
+from . import db
 
 class HatComposite(db.Model):
     __abstract__ = True
@@ -15,6 +15,8 @@ class HatComponent(HatComposite):
     url = db.Column(db.String)
 
     leaves = db.Relationship("HatLeaf", backref="hatcomponent")
+
+    text_id = ""
 
 class HatLeaf(HatComposite):
     __tablename__ = 'hatleafs'

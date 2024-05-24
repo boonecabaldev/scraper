@@ -13,8 +13,10 @@ if os.environ.get('FLASK_COVERAGE'):
 
 import sys
 import click
-from app import	create_app,	db 
+
+from app import db, create_app
 from app.models	import HatComponent, HatLeaf
+
 from flask_migrate import Migrate
 
 app	= create_app(os.getenv('FLASK_CONFIG') or	'default') 
@@ -57,6 +59,4 @@ def	deploy():
     """Run deployment	tasks."""
     #	migrate	database to	latest revision
     #upgrade()
-    
-    from app.database import reset_database
-    reset_database()
+    pass
